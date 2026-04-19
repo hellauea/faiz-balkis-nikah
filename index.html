@@ -567,40 +567,11 @@
       line-height: 1
     }
 
-    .hero__title-rule {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      justify-content: center;
-      opacity: 0
-    }
-
-    .hero__title-rule::before,
-    .hero__title-rule::after {
-      content: '';
-      display: block;
-      width: clamp(25px, 7vw, 55px);
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(184, 134, 11, .5))
-    }
-
-    .hero__title-rule::after {
-      background: linear-gradient(to left, transparent, rgba(184, 134, 11, .5))
-    }
-
-    .hero__title-rule-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--gold);
-      opacity: .7
-    }
-
     .hero__amp {
       font-family: var(--font-d);
-      font-size: clamp(1.1rem, 3.8vw, 2rem);
+      font-size: clamp(2.5rem, 6vw, 4rem);
       font-style: italic;
-      color: rgba(184, 134, 11, .55);
+      color: var(--gold);
       font-weight: 300;
       opacity: 0;
       line-height: 1.4
@@ -2001,7 +1972,7 @@
         <p class="hero__pre-text">وَخَلَقْنَاكُمْ أَزْوَاجًا</p>
         <h1 class="hero__title">
           <span class="hero__groom">Syed Al Faiz Hussain</span>
-          <div class="hero__title-rule"><span class="hero__title-rule-dot"></span></div>
+          <span class="hero__amp">&amp;</span>
           <span class="hero__bride">Balkis Banu</span>
         </h1>
         <p class="hero__tagline">Two souls · One blessing · Forever</p>
@@ -2400,8 +2371,7 @@
         const tl = gsap.timeline({ defaults: { ease: 'power4.out' }, delay: .15 });
         tl.to('.hero__pre-text', { opacity: 1, y: 0, duration: 1.4, ease: 'power3.out' }, 0)
           .to('.hero__groom', { opacity: 1, y: 0, duration: 1.2 }, 0.55)
-          .to('.hero__title-rule', { opacity: 1, duration: .8 }, 1.0)
-          .to('.hero__amp', { opacity: 1, duration: .7, ease: 'power2.out' }, 1.1)
+          .to('.hero__amp', { opacity: 1, duration: .8, ease: 'power2.out' }, 1.0)
           .to('.hero__bride', { opacity: 1, y: 0, duration: 1.2 }, 1.15)
           .to('.hero__tagline', { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }, 1.9)
           .to('.hero__scroll-hint', { opacity: 1, duration: 1 }, 2.6);
@@ -2510,6 +2480,16 @@
           muted = !muted;
           muted ? sound.pause() : sound.play();
           toggle.classList.toggle('is-muted', muted);
+        });
+
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) {
+            sound.pause();
+          } else {
+            if (!muted) {
+              sound.play();
+            }
+          }
         });
       }
 
